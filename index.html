@@ -9,7 +9,7 @@
 
     body {
       font-family: 'Georgia', serif;
-      background: #fafafa;
+      background: #111;
       color: #1a1a1a;
       min-height: 100vh;
     }
@@ -18,8 +18,7 @@
     .hero {
       text-align: center;
       padding: 80px 24px 60px;
-      background: #fff;
-      border-bottom: 1px solid #efefef;
+      background: #111;
     }
 
     .hero-tag {
@@ -28,160 +27,232 @@
       font-size: 11px;
       letter-spacing: 3px;
       text-transform: uppercase;
-      color: #999;
+      color: #777;
       margin-bottom: 24px;
     }
 
     .hero h1 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-size: clamp(2rem, 5vw, 3.4rem);
       font-weight: normal;
-      line-height: 1.2;
+      line-height: 1.25;
       margin-bottom: 24px;
-      color: #111;
+      color: #f5f0e8;
     }
 
     .hero h1 em {
       font-style: italic;
-      color: #c0392b;
+      color: #d4a45a;
     }
 
     .hero p {
-      max-width: 560px;
+      max-width: 520px;
       margin: 0 auto;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       line-height: 1.8;
-      color: #555;
+      color: #888;
     }
 
-    /* ── Grid ── */
+    /* ── Section label ── */
     .section-label {
       text-align: center;
       font-family: 'Helvetica Neue', sans-serif;
       font-size: 11px;
       letter-spacing: 3px;
       text-transform: uppercase;
-      color: #999;
+      color: #555;
       padding: 56px 24px 32px;
     }
 
+    /* ── Cards grid ── */
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2px;
       max-width: 1100px;
       margin: 0 auto;
       padding: 0 24px 80px;
     }
 
+    /* ── Card ── */
     .card {
-      background: #fff;
-      border: 1px solid #e8e8e8;
-      border-radius: 4px;
-      padding: 40px 32px 36px;
-      cursor: pointer;
-      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
       position: relative;
+      height: 560px;
+      cursor: pointer;
       overflow: hidden;
     }
 
-    .card:hover {
-      border-color: #c0392b;
-      box-shadow: 0 4px 24px rgba(192, 57, 43, 0.08);
-      transform: translateY(-2px);
-    }
-
-    .card.selected {
-      border-color: #c0392b;
-      box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.15);
-    }
-
-    .card.selected::after {
-      content: '✓';
+    /* Background image */
+    .card-bg {
       position: absolute;
-      top: 16px;
-      right: 20px;
-      font-size: 16px;
-      color: #c0392b;
-      font-family: sans-serif;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.6s ease;
     }
 
-    .card-icon {
-      font-size: 2.4rem;
+    .card:hover .card-bg {
+      transform: scale(1.04);
+    }
+
+    /* Dark overlay — lifts on reveal */
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      transition: background 0.5s ease;
+    }
+
+    .card.revealed .card-overlay {
+      background: rgba(0,0,0,0.35);
+    }
+
+    /* Mystery front (before reveal) */
+    .card-mystery {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      transition: opacity 0.4s ease;
+    }
+
+    .card.revealed .card-mystery {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .card-option-label {
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .card-question {
+      font-size: 4rem;
+      color: rgba(255,255,255,0.9);
       line-height: 1;
     }
 
-    .card-city {
-      font-size: 1.6rem;
-      font-weight: normal;
-      color: #111;
-    }
-
-    .card-desc {
-      font-size: 0.95rem;
-      line-height: 1.75;
-      color: #666;
-      flex: 1;
-    }
-
-    .card-btn {
-      display: inline-block;
-      margin-top: 8px;
-      padding: 12px 24px;
-      background: transparent;
-      border: 1px solid #1a1a1a;
+    .card-hint {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.5);
       font-family: 'Helvetica Neue', sans-serif;
-      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    .card-reveal-btn {
+      padding: 12px 32px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.8);
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 11px;
       letter-spacing: 2px;
       text-transform: uppercase;
       cursor: pointer;
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
-      width: 100%;
-      text-align: center;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
     }
 
-    .card:hover .card-btn,
-    .card.selected .card-btn {
-      background: #c0392b;
-      border-color: #c0392b;
+    .card-reveal-btn:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.7);
       color: #fff;
     }
 
-    /* Surprise card */
-    .card-surprise {
-      border-style: dashed;
-      background: #fefefe;
+    /* Revealed content */
+    .card-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 40px 36px;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
+      pointer-events: none;
     }
 
-    .card-surprise .card-city {
-      color: #888;
+    .card.revealed .card-content {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
 
-    /* ── Confirmation message ── */
+    .card-city {
+      font-size: 2.4rem;
+      font-weight: normal;
+      color: #fff;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+    }
+
+    .card-desc {
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 24px;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+    }
+
+    .card-choose-btn {
+      display: inline-block;
+      padding: 13px 28px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.6);
+      color: #fff;
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      align-self: flex-start;
+    }
+
+    .card-choose-btn:hover,
+    .card.selected .card-choose-btn {
+      background: rgba(255,255,255,0.18);
+      border-color: #fff;
+    }
+
+    /* Selected checkmark */
+    .card.selected::before {
+      content: '✓';
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-size: 18px;
+      color: #fff;
+      font-family: sans-serif;
+      z-index: 10;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    }
+
+    /* ── Confirmation ── */
     .confirm {
       display: none;
       text-align: center;
-      padding: 40px 24px 80px;
+      padding: 60px 24px 80px;
       font-size: 1.1rem;
-      color: #555;
-      line-height: 1.8;
+      color: #888;
+      line-height: 1.9;
+      background: #111;
     }
 
     .confirm strong {
-      color: #c0392b;
+      color: #d4a45a;
     }
 
-    .confirm.visible {
-      display: block;
-    }
+    .confirm.visible { display: block; }
 
     /* ── Confetti ── */
     .confetti-piece {
       position: fixed;
-      width: 8px;
-      height: 8px;
       border-radius: 50%;
       pointer-events: none;
       animation: fall 1.2s ease-in forwards;
@@ -197,10 +268,16 @@
     footer {
       text-align: center;
       padding: 32px 24px;
-      font-size: 0.85rem;
-      color: #bbb;
-      border-top: 1px solid #efefef;
+      font-size: 0.8rem;
+      color: #444;
+      border-top: 1px solid #1e1e1e;
       font-family: 'Helvetica Neue', sans-serif;
+      background: #111;
+    }
+
+    @media (max-width: 640px) {
+      .card { height: 440px; }
+      .card-city { font-size: 1.8rem; }
     }
   </style>
 </head>
@@ -211,99 +288,115 @@
     <span class="hero-tag">Para ti, con todo mi amor</span>
     <h1>Este año, tu regalo<br>es una <em>escapada</em> juntos.</h1>
     <p>
-      Elige el destino que más te apetezca. Tú decides, yo me encargo del resto.
-      Un fin de semana solo para los dos, donde tú quieras.
+      He preparado dos sorpresas. Elige la que más te llame — tú decides,
+      yo me encargo del resto.
     </p>
   </section>
 
+  <p class="section-label">¿Qué hay detrás de cada puerta?</p>
+
   <!-- Cards -->
-  <p class="section-label">Elige tu destino</p>
   <div class="cards">
 
-    <div class="card" onclick="selectCard(this, 'Viena')">
-      <div class="card-icon">🎻</div>
-      <div class="card-city">Viena</div>
-      <p class="card-desc">
-        Paseos por el Ringstrasse, café vienés con strudel de manzana y música
-        clásica en el aire. Viena es una ciudad donde el tiempo se detiene y cada
-        rincón cuenta una historia de siglos.
-      </p>
-      <button class="card-btn">Quiero ir aquí</button>
+    <!-- OPCIÓN A — Vienna (Klimt) -->
+    <div class="card" id="card-a">
+
+      <div class="card-bg" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/40/The_Kiss_-_Gustav_Klimt_-_Google_Cultural_Institute.jpg');"></div>
+      <div class="card-overlay"></div>
+
+      <!-- Mystery -->
+      <div class="card-mystery">
+        <span class="card-option-label">Opción A</span>
+        <div class="card-question">?</div>
+        <div class="card-hint">Una ciudad, un museo, un cuadro</div>
+        <button class="card-reveal-btn" onclick="reveal('card-a', event)">Descubrir</button>
+      </div>
+
+      <!-- Revealed -->
+      <div class="card-content">
+        <div class="card-city">Viena</div>
+        <p class="card-desc">
+          El Palacio del Belvedere, donde cuelga el original de <em>El Beso</em> de Klimt.
+          Cafés centenarios, el Ringstrasse y conciertos de Mozart en palacios barrocos.
+          Una ciudad que parece pintada.
+        </p>
+        <button class="card-choose-btn" onclick="selectCard('card-a', 'Viena', event)">Quiero ir aquí</button>
+      </div>
+
     </div>
 
-    <div class="card" onclick="selectCard(this, 'Madrid')">
-      <div class="card-icon">🌹</div>
-      <div class="card-city">Madrid</div>
-      <p class="card-desc">
-        Tapas en el Rastro, tardes en el Museo del Prado y noches que no terminan.
-        Madrid es la ciudad más viva de Europa — perfecta para perderse juntos
-        sin prisa y sin rumbo fijo.
-      </p>
-      <button class="card-btn">Quiero ir aquí</button>
-    </div>
+    <!-- OPCIÓN B — Madrid (Retiro) -->
+    <div class="card" id="card-b">
 
-    <div class="card" onclick="selectCard(this, 'Roma')">
-      <div class="card-icon">🍝</div>
-      <div class="card-city">Roma</div>
-      <p class="card-desc">
-        Monedas en la Fontana di Trevi, pasta al atardecer y callejones con dos
-        mil años de historia. Roma es siempre una buena idea, especialmente
-        cuando se comparte contigo.
-      </p>
-      <button class="card-btn">Quiero ir aquí</button>
-    </div>
+      <div class="card-bg" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Palacio_de_Cristal_%28Retiro%2C_Madrid%29_05.jpg/1280px-Palacio_de_Cristal_%28Retiro%2C_Madrid%29_05.jpg');"></div>
+      <div class="card-overlay"></div>
 
-    <div class="card card-surprise" onclick="selectCard(this, 'tu destino soñado')">
-      <div class="card-icon">✨</div>
-      <div class="card-city">¿Otro destino?</div>
-      <p class="card-desc">
-        ¿Tienes algún lugar con el que llevas tiempo soñando? Dímelo y lo hacemos
-        realidad. No hay límites — solo dinos a dónde quieres ir.
-      </p>
-      <button class="card-btn">Tengo otro en mente</button>
+      <!-- Mystery -->
+      <div class="card-mystery">
+        <span class="card-option-label">Opción B</span>
+        <div class="card-question">?</div>
+        <div class="card-hint">Un parque, un museo, una ciudad</div>
+        <button class="card-reveal-btn" onclick="reveal('card-b', event)">Descubrir</button>
+      </div>
+
+      <!-- Revealed -->
+      <div class="card-content">
+        <div class="card-city">Madrid</div>
+        <p class="card-desc">
+          El Museo del Prado, el Palacio de Cristal del Retiro y churros con chocolate
+          en la Chocolatería San Ginés. Madrid tiene la energía de una ciudad que nunca
+          duerme, pero también sabe cuándo parar y disfrutar.
+        </p>
+        <button class="card-choose-btn" onclick="selectCard('card-b', 'Madrid', event)">Quiero ir aquí</button>
+      </div>
+
     </div>
 
   </div>
 
   <!-- Confirmation -->
   <div class="confirm" id="confirm">
-    ¡Perfecto! Has elegido <strong id="chosen-city"></strong>. 🎉<br>
-    Ya estoy organizando todo para que sea un fin de semana inolvidable.<br>
-    <em>Feliz cumpleaños, mi amor.</em>
+    ¡Has elegido <strong id="chosen-city"></strong>! 🎉<br>
+    Ya estoy organizando todo para que sea un fin de semana inolvidable.<br><br>
+    <em style="color:#666;">Feliz cumpleaños, mi amor.</em>
   </div>
 
   <!-- Footer -->
   <footer>Hecho con ♥ para el mejor cumpleaños del mundo</footer>
 
   <script>
-    function selectCard(card, city) {
-      // Deselect all
+    function reveal(cardId, e) {
+      e.stopPropagation();
+      document.getElementById(cardId).classList.add('revealed');
+    }
+
+    function selectCard(cardId, city, e) {
+      e.stopPropagation();
       document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
-      // Select clicked
-      card.classList.add('selected');
-      // Show confirmation
-      const confirm = document.getElementById('confirm');
+      document.getElementById(cardId).classList.add('selected');
       document.getElementById('chosen-city').textContent = city;
+      const confirm = document.getElementById('confirm');
       confirm.classList.add('visible');
       confirm.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      // Confetti burst
       launchConfetti();
     }
 
     function launchConfetti() {
-      const colors = ['#c0392b', '#e74c3c', '#f39c12', '#27ae60', '#2980b9', '#8e44ad'];
-      for (let i = 0; i < 60; i++) {
+      const colors = ['#d4a45a', '#c0392b', '#e74c3c', '#f39c12', '#fff', '#8e44ad'];
+      for (let i = 0; i < 70; i++) {
         setTimeout(() => {
           const el = document.createElement('div');
           el.className = 'confetti-piece';
           el.style.left = Math.random() * 100 + 'vw';
           el.style.top = '-10px';
           el.style.background = colors[Math.floor(Math.random() * colors.length)];
-          el.style.animationDuration = (0.8 + Math.random() * 0.8) + 's';
-          el.style.width = el.style.height = (6 + Math.random() * 8) + 'px';
+          el.style.animationDuration = (0.8 + Math.random() * 0.9) + 's';
+          const size = (6 + Math.random() * 8) + 'px';
+          el.style.width = size;
+          el.style.height = size;
           document.body.appendChild(el);
-          setTimeout(() => el.remove(), 1500);
-        }, i * 20);
+          setTimeout(() => el.remove(), 1600);
+        }, i * 18);
       }
     }
   </script>
