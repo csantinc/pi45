@@ -94,15 +94,16 @@
       transform: scale(1.04);
     }
 
-    /* Dark overlay — lifts on reveal */
+    /* Dark overlay — lifts only after reveal */
     .card-overlay {
       position: absolute;
       inset: 0;
       background: rgba(0,0,0,0.55);
-      transition: background 0.5s ease;
+      transition: none;
     }
 
     .card.revealed .card-overlay {
+      transition: background 0.5s ease;
       background: rgba(0,0,0,0.35);
     }
 
@@ -328,7 +329,7 @@
     <!-- OPCIÓN B — Madrid (Retiro) -->
     <div class="card" id="card-b">
 
-      <div class="card-bg" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/b/be/Madrid_skyline_from_Almudena_Cathedral.jpg');"></div>
+      <div class="card-bg" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/f/f9/Madrid_-_Gran_V%C3%ADa_-_20110808_-_panorama.jpg');"></div>
       <div class="card-overlay"></div>
 
       <!-- Mystery -->
